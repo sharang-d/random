@@ -15,7 +15,7 @@ curl -s -X POST -d $QUERY --cookie-jar $COOKIE_FILE $LOGIN_URL -o /dev/null
 
 # Make the request to the usage page using the generated session
 # Cut as required
-data=$(curl -s --cookie $COOKIE_FILE $USAGE_URL |\
+resp=$(curl -s --cookie $COOKIE_FILE $USAGE_URL |\
        grep "$MARKER_TEXT" |\
        cut -d '>' -f 2 |\
        cut -d '<' -f 1)
@@ -27,10 +27,10 @@ curl -s --cookie $COOKIE_FILE $LOGOUT_URL -o /dev/null
 rm $COOKIE_FILE
 
 # 1st line is `data left` and 2nd line is `days left`
-used=$(echo -e "$data" | head -1)
-used_in_gb=$(echo "scale=2; ${used}/1024" | bc)
-total=$(echo -e "$data" | tail -1)
+data=$(echo -e "$resp" | head -1)
+data_in_gb=$(echo "scale=2; ${data}/1024" | bc)
+days=$(echo -e "$resp" | tail -1)
 
 # Display relevant information
-echo "Data Left: $used MB ($used_in_gb GB)"
-echo "Days Left: $total"
+echo "Data Left: $data MB ($data_in_gb GB)"
+echo "Days Left: $days"
