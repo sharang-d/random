@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Pretty sure that this does not work anymore
+
 # Set all required constants
 USER_ID="<INSERT_LOGIN_ID_HERE>"
 PASSWORD="<INSERT_PASSWORD_HERE>"
